@@ -363,7 +363,14 @@ $('#adicionar').click(function() {
   };
 
 
+  <!-------------------------------------------- COOKIES-------------------------------------------------------->
 </script>
+document.getElementById("especie").onchange=function(){
+  let especieBreed = document.getElementById("especie").value
+  console.log(especieBreed)
+  document.cookie = "especieBreed=" + especieBreed;
+
+}
 
 
 
