@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>C4P</title>
+    <link rel="shortcut icon" href="Img/pets.jpg" />
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,26 +17,35 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="extensions/editable/bootstrap-table-editable.js"></script>
 
+<!------------------------------------- AQUI EMPIEZA COMO TAL EL PROGRAMA --------------------------------->    
     <div class="container">
         <h2>"Ciudadanos de 4 patas"</h2>
-        <form>
+
+
+<!------------------------------------- FORMULARIO DE REGISTRO DE UNA MASCOTA ----------------------------------------->
+
+        <form onsubmit="return false">
           <!-- Tipo de ordenamiento de los campos-->
          <div class="form-group">
           <p>
             <!-- Label y espacio para el nombre del dueño-->
             <label>Nombre del dueño:</label> <br>
-            <input id="nombreD" class="form-control" type="text">   
+            <input id="nombreD" class="form-control" type="text" required="required">   
           </p>
           <p>
             <!-- Label y espacio para el año de nacimiento de la mascota-->
             <label>Año de nacimiento de la mascota:</label> <br>
-            <input id="anioN" class="form-control" type="number" min="1990" max="2021" placeholder="1990..."  pattern="[0-9]{4}"> 
+            <input id="anioN" class="form-control" type="number"required min="1990" max="2021" placeholder="1990..."  pattern="[0-9]{4}"> 
           </p>
           <p>
             <!-- Label y espacio para el nombre de la mascota -->
             <label>Nombre de la mascota:</label> <br>
-            <input id="nombreM" class="form-control" type="text">
+            <input id="nombreM" class="form-control" type="text" required>
           </p>
           <p>
             <!-- Label y espacio para el microchip -->
@@ -45,8 +55,8 @@
           <p>
             <!-- Label y espacio para la especie -->
             <label>Especie:</label> <br>
-            <select id="especie" class="form-control" required>
-                <option selected value=""> Elige una opción </option>
+            <select id="especie" class="form-control" >
+                <option selected value="" required> Elige una opción </option>
                 <option value="Perro">Perro</option>
                 <option value="Gato">Gato</option> 
             </select>
@@ -117,11 +127,29 @@
                 <option value="Usme">Usme</option>  
             </select>
           </p>
+          <img id="pet-image" src="https://images.dog.ceo/breeds/sheepdog-shetland/n02105855_11668.jpg" width="200">
+     
+          <br><br>
           <!-- Boton para adicionar -->
-          <button id="adicionar" class="btn btn-success" type="button">Adicionar a la tabla</button>
-          <img id="pet-image" src="https://images.dog.ceo/breeds/sheepdog-shetland/n02105855_11668.jpg" >
-        </div>
+          <center>
+          <button class="btn btn-success" type="submit">Validar</button>
+          <button id="adicionar" class="btn btn-success" type="button">Agregar</button>
+        </center>
+             </div>
       </form>
+
+
+      <br>
+
+
+
+<!--------------------------------------------- TABLA DE MASCOTAS ---------------------------------------------------->
+
+      <center><h1>Tabla De Mascotas</h1></center>
+      <br>
+      
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Type to search.." title="Type in a name">
+      <br><br>
       <!-- Creacion de la tabla -->
       <table  id="mytable" class="table table-bordered table-hover ">
         <tr id="row">
@@ -136,20 +164,143 @@
           <th>¿Peligroso?</th>
           <th>¿Esterilizado?</th>
           <th>Localidad</th>
+          <th>Editar</th>
           <th>Eliminar</th>
       
         </tr>
       </table>
+      <div id="contenedorForm">
+      </div>
     </div>
+
+    
+
+
+    <!-----------------------------MODAL----------------------------->
+
+ <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Editar Mascotas</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+        <form id= "ModalForm" onsubmit="return false">
+          <!-- Tipo de ordenamiento de los campos-->
+         <div class="form-group">
+          
+          <p>
+            <!-- Label y espacio para el microchip -->
+            <label>Microchip:</label> <br>
+            <input id="editMicr" class="form-control" type="text">
+          </p>
+          
+          <p>
+            <!-- Label y espacio para el tamaño de la mascota-->
+            <label>Tamaño:</label> <br>
+            <select id="editTam" class="form-control" >
+                <option selected value=""> Elige una opción </option>
+                <option value="Pequeño">Pequeño</option>
+                <option value="Mediano">Mediano</option> 
+                <option value="Grande">Grande</option>
+            </select>  
+          </p>
+          <p>
+            <!-- Label y espacio para determinar si la mascota es peligrosa -->
+            <label>¿Es potencialmente peligrosa?:</label> <br>
+            <select id="editPd" class="form-control" >
+                <option selected value=""> Elige una opción </option>
+                <option value="Si">Si</option>
+                <option value="No">No</option> 
+            </select>
+          </p>
+          <p>
+            <!-- Label y espacio para determinar si la mascota se encuentra esterilizada-->
+            <label>¿Se encuentra esterilizada?:</label> <br>
+            <select id="editEsteril" class="form-control" >
+                <option selected value=""> Elige una opción </option>
+                <option value="Si">Si</option>
+                <option value="No">No</option> 
+            </select>
+          </p>
+          <p>
+            <!-- Label y espacio para la localidad de residencia de la mascota-->
+            <label>Localidad:</label> <br>
+            <select id="editLoc" class="form-control" >
+                <option selected value=""> Elige una opción </option>
+                <option value="Antonio Nariño">Antonio Nariño</option>
+                <option value="Barrios Unidos">Barrios Unidos</option>
+                <option value="Bosa">Bosa</option>
+                <option value="Chapinero">Chapinero</option>
+                <option value="Ciudad Bolívar">Ciudad Bolívar</option>
+                <option value="Engativá">Engativá</option>
+                <option value="Fontibón">Fontibón</option>
+                <option value="Kennedy">Kennedy</option>
+                <option value="La Candelaria">La Candelaria</option>
+                <option value="Los Mártires">Los Mártires</option>
+                <option value="Puente Aranda">Puente Aranda</option>
+                <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
+                <option value="San Cristóbal">San Cristóbal</option>
+                <option value="Santa Fe">Santa Fe</option>
+                <option value="Suba">Suba</option>
+                <option value="Sumapaz">Sumapaz</option>
+                <option value="Teusaquillo">Teusaquillo</option>
+                <option value="Tunjuelito">Tunjuelito</option>
+                <option value="Usaquén">Usaquén</option>
+                <option value="Usme">Usme</option>  
+            </select>
+          </p>
+          <br><br>
+
+           <!-- Boton para adicionar -->
+          <center>
+          <button id="guardarEd"class="btn btn-success" type="button">Guardar</button>
+        </center>
+             </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+  <!------------------------------- FUNCION PARA LA BUSQUEDA DE LA TABLA---------------------------------------------->
+    <script>
+      $(document).ready(function(){
+       $("#myInput").on("keyup", function() {
+         var value = $(this).val().toLowerCase();
+         $("#mytable tr").filter(function() {
+           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+         });
+       });
+     });
+       </script>
+
+
+
 </body>
 </html>
 
+
+
+<!-------------------------------------------- AQUI EMPIEZAN LOS JAVASCRIPT ------------------------------------------->
+
+
+<!-- FUNCION PARA MOSTRAR LOS DATOS EN LA TABLA ------------------------------------>
 <script>
     $(document).ready(function() {
       
 //obtenemos el valor de los input
 $('#adicionar').click(function() {
-  
   var today = new Date(); 
   var fechaC = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
   var nombreD = document.getElementById("nombreD").value;
@@ -164,13 +315,20 @@ $('#adicionar').click(function() {
   var localidad = document.getElementById("localidad").value;
 
   var i = 1; //contador para asignar id al boton que borrara la fila
-  var fila = '<tr id="row' + i + '"><td>' + fechaC + '</td><td>' + nombreD + '</td><td>' + anioN + '</td><td>'+ nombreM + '</td><td>'+ 
+  var fila = '<tr id="row' + i + '"><td id="fce">' + fechaC + '</td><td id="nomde">' + nombreD + '</td><td id="fae" contenteditable="true">' + anioN + '</td><td>'+ nombreM + '</td><td>'+ 
     microchip + '</td><td>'+ especie + '</td><td>'+ sexo +'</td><td>'+ tamanio +'</td><td>'+ pd +'</td><td>'+ esteril +'</td><td>'+ localidad +'</td>'+
-        '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+        '<td><button type="button" name="edit" id="' + i + '"  class="btn btn-info btn_edit" data-toggle="modal" data-target="#myModal" onclick=editar(this) >Editar</button></td>'+
+        '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr> '; //esto seria lo que contendria la fila
         $('#mytable').append(fila);
+        
   i++; 
+    
 });
 
+
+
+
+//FUNCION PARA BORRAR DATOS DE LA TABLA ----------------------------------------------------
   $(document).on('click', '.btn_remove', function() {
   var button_id = $(this).attr("id");
     //cuando da click obtenemos el id del boton
@@ -202,6 +360,88 @@ $('#adicionar').click(function() {
     }
   
   });
-};
+  };
+
+
+</script>
+
+
+
+
+
+<!-------------------------------------------- EDITAR-------------------------------------------------------->
+
+<script>
+
+function editar(nodo) {
+
+            
+      var nodoTd = nodo.parentNode; //Capturo la fila
+      var nodoTr = nodoTd.parentNode; //Calputo cada columna de la fila anterior
+      var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV
+      var nodosEnTr = nodoTr.getElementsByTagName('td');//obtengo la informacion de los elementos de la fila 
+      
+      var today = new Date(); 
+      var fecha_mod = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+      var microchip = nodosEnTr[4].textContent; 
+      var tamanio = nodosEnTr[7].textContent; 
+      var pd = nodosEnTr[8].textContent; 
+      var esteril = nodosEnTr[9].textContent; 
+      var localidad = nodosEnTr[10].textContent;
+
+ 
+            //Prefill the fields with the gathered information
+            $('#editMicr').val(microchip);
+            $('#editTam').val(tamanio).attr('selected', 'selected');
+            $('#editPd').val(pd).attr('selected', 'selected');
+            $("#editEsteril").val(esteril).attr('selected', 'selected');
+            $('#editLoc').val(localidad).attr('selected', 'selected');
+
+      //-----------------------------GUARDAR EDICION-------------------
+      $('#guardarEd').click(function() {
+
+      var nodoTd = nodo.parentNode; //Capturo la fila
+      var nodoTr = nodoTd.parentNode; //Calputo cada columna de la fila anterior
+      var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV
+      var nodosEnTr = nodoTr.getElementsByTagName('td');//obtengo la informacion de los elementos de la fila 
+      
+        var today = new Date(); 
+      var fecha_mod = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+   
+      var nombreD = nodosEnTr[1].textContent; 
+      var anioN = nodosEnTr[2].textContent;
+      var nombreM = nodosEnTr[3].textContent; 
+      var sexo = nodosEnTr[6].textContent; 
+      var especie = nodosEnTr[5].textContent; 
+
+   var microchip = document.getElementById("editMicr").value;
+  var tamanio = document.getElementById("editTam").value;
+  var pd = document.getElementById("editPd").value;
+  if(esteril=="No"){
+  var esteril = document.getElementById("editEsteril").value;
+  }else{
+    var esteril = document.getElementById("editEsteril").value;
+    if(esteril=="No"){
+      window.alert("no es permitido")
+    }else{
+      var esteril="Si"
+    }
+    var esteril="Si"
+    
+  }
+  var localidad = document.getElementById("editLoc").value;
+
+  var fila = '<tr id="row"><td id="fce">' + fecha_mod + '</td><td id="nomde">' + nombreD + '</td><td id="fae" contenteditable="true">' + anioN + '</td><td>'+ nombreM + '</td><td>'+ 
+    microchip + '</td><td>'+ especie + '</td><td>'+ sexo +'</td><td>'+ tamanio +'</td><td>'+ pd +'</td><td>'+ esteril +'</td><td>'+ localidad +'</td>'+
+        '<td><button type="button" name="edit" id=""  class="btn btn-info btn_edit" data-toggle="modal" data-target="#myModal" onclick=editar(this) >Editar</button></td>'+
+        '<td><button type="button" name="remove" id="" class="btn btn-danger btn_remove">Quitar</button></td></tr> '; //esto seria lo que contendria la fila
+
+    $('#mytable').append(fila);
+    nodoTr.remove();
+});
+
+
+  }
+
 
 </script>
