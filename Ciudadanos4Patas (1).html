@@ -176,4 +176,27 @@ $('#adicionar').click(function() {
     var nFilas = $("#mytable tr").length;
   });
 });
+  fetch('https://dog.ceo/api/breeds/image/random  ')
+  .then(response => response.json())
+  .then(data => { 
+   // console.log(data)
+   let petSpecie = document.getElementById("especie")
+    Object.keys(data.message).map((perro)=> {
+    let option = document.createElement("option");
+    option.innerHTML = perro;
+    petSpecie.appendChild(option);
+
+    });
+  });
+
+document.getElementById("especie").onclick= function(){
+  let perro = document.getElementById("especie").value;
+
+  fetch('https://dog.ceo/api/breeds/image/random')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById("pet-image").setAttribute("src" , data.message);
+
+  });
+};
 </script>
