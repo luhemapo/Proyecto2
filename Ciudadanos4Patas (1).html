@@ -20,28 +20,30 @@
     <div class="container">
         <h2>"Ciudadanos de 4 patas"</h2>
         <form>
+          <!-- Tipo de ordenamiento de los campos-->
          <div class="form-group">
           <p>
-            <label>Fecha de creacion:</label> <br>
-            <input id="fechaC" class="form-control" type="date">
-          </p>
-          <p>
+            <!-- Label y espacio para el nombre del dueño-->
             <label>Nombre del dueño:</label> <br>
             <input id="nombreD" class="form-control" type="text">   
           </p>
           <p>
+            <!-- Label y espacio para el año de nacimiento de la mascota-->
             <label>Año de nacimiento de la mascota:</label> <br>
             <input id="anioN" class="form-control" type="number" min="1990" max="2021" placeholder="1990..."  pattern="[0-9]{4}"> 
           </p>
           <p>
+            <!-- Label y espacio para el nombre de la mascota -->
             <label>Nombre de la mascota:</label> <br>
             <input id="nombreM" class="form-control" type="text">
           </p>
           <p>
+            <!-- Label y espacio para el microchip -->
             <label>Microchip:</label> <br>
             <input id="microchip" class="form-control" type="text">
           </p>
           <p>
+            <!-- Label y espacio para la especie -->
             <label>Especie:</label> <br>
             <select id="especie" class="form-control" required>
                 <option selected value=""> Elige una opción </option>
@@ -50,6 +52,7 @@
             </select>
           </p>
           <p>
+            <!-- Label y espacio para el sexo de la mascota-->
             <label>Sexo:</label> <br>
             <select id="sexo" class="form-control" required>
                 <option selected value=""> Elige una opción </option>
@@ -58,6 +61,7 @@
             </select>
           </p>
           <p>
+            <!-- Label y espacio para el tamaño de la mascota-->
             <label>Tamaño:</label> <br>
             <select id="tamanio" class="form-control" required>
                 <option selected value=""> Elige una opción </option>
@@ -67,6 +71,7 @@
             </select>  
           </p>
           <p>
+            <!-- Label y espacio para determinar si la mascota es peligrosa -->
             <label>¿Es potencialmente peligrosa?:</label> <br>
             <select id="pd" class="form-control" required>
                 <option selected value=""> Elige una opción </option>
@@ -75,6 +80,7 @@
             </select>
           </p>
           <p>
+            <!-- Label y espacio para determinar si la mascota se encuentra esterilizada-->
             <label>¿Se encuentra esterilizada?:</label> <br>
             <select id="esteril" class="form-control" required>
                 <option selected value=""> Elige una opción </option>
@@ -83,6 +89,7 @@
             </select>
           </p>
           <p>
+            <!-- Label y espacio para la localidad de residencia de la mascota-->
             <label>Localidad:</label> <br>
             <select id="localidad" class="form-control" required>
                 <option selected value=""> Elige una opción </option>
@@ -108,14 +115,14 @@
                 <option value="Usme">Usme</option>  
             </select>
           </p>
-    
+          <!-- Boton para adicionar -->
           <button id="adicionar" class="btn btn-success" type="button">Adicionar a la tabla</button>
         </div>
       </form>
-      
+      <!-- Creacion de la tabla -->
       <table  id="mytable" class="table table-bordered table-hover ">
         <tr id="row">
-          <th>Fecha Nacimiento</th>
+          <th>Fecha creación</th>
           <th>Nombre del propietario</th>
           <th>Año de nacimiento</th>
           <th>Nombre de la mascota</th>
@@ -138,22 +145,20 @@
     $(document).ready(function() {
       
 //obtenemos el valor de los input
-
 $('#adicionar').click(function() {
-    
-    var fechaC = document.getElementById("fechaC").value;
-    var nombreD = document.getElementById("nombreD").value;
-    var anioN = document.getElementById("anioN").value;
-    var nombreM = document.getElementById("nombreM").value;
-    var microchip = document.getElementById("microchip").value;
-    var especie = document.getElementById("especie").value;
-    var sexo = document.getElementById("sexo").value;
-    var tamanio = document.getElementById("tamanio").value;
-    var pd = document.getElementById("pd").value;
-    var esteril = document.getElementById("esteril").value;
-    var localidad = document.getElementById("localidad").value;
-
-   
+  
+  var today = new Date(); 
+  var fechaC = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+  var nombreD = document.getElementById("nombreD").value;
+  var anioN = document.getElementById("anioN").value;
+  var nombreM = document.getElementById("nombreM").value;
+  var microchip = document.getElementById("microchip").value;
+  var especie = document.getElementById("especie").value;
+  var sexo = document.getElementById("sexo").value;
+  var tamanio = document.getElementById("tamanio").value;
+  var pd = document.getElementById("pd").value;
+  var esteril = document.getElementById("esteril").value;
+  var localidad = document.getElementById("localidad").value;
 
   var i = 1; //contador para asignar id al boton que borrara la fila
   var fila = '<tr id="row' + i + '"><td>' + fechaC + '</td><td>' + nombreD + '</td><td>' + anioN + '</td><td>'+ nombreM + '</td><td>'+ 
