@@ -313,7 +313,7 @@ $('#adicionar').click(function() {
   var esteril = document.getElementById("esteril").value;
   var localidad = document.getElementById("localidad").value;
 
-  var i = 1; //contador para asignar id al boton que borrara la fila
+  var i = 1; //contador para asignar el id al boton que editará la fila
   var cookie = " "+fechaC+ "-"+ nombreD+ "-" + anioN+ "-" + nombreM+ "-" + microchip+ "-" + especie+ "-" + sexo+ "-" + tamanio+ "-"+ pd + "-"+ esteril+ "-" + localidad+ " ";
   var fila = '<tr id="row' + i + '"><td id="fce">' + fechaC + '</td><td id="nomde">' + nombreD + '</td><td id="fae" contenteditable="true">' + anioN + '</td><td>'+ nombreM + '</td><td>'+ 
     microchip + '</td><td>'+ especie + '</td><td>'+ sexo +'</td><td>'+ tamanio +'</td><td>'+ pd +'</td><td>'+ esteril +'</td><td>'+ localidad +'</td>'+
