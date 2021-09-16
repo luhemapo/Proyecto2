@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="extensions/editable/bootstrap-table-editable.js"></script>
+    <!--- <script src="extensions/editable/bootstrap-table-editable.js"></script> --->
 
 <!------------------------------------- AQUI EMPIEZA COMO TAL EL PROGRAMA --------------------------------->    
     <div class="container">
@@ -148,7 +148,7 @@
       <center><h1>Tabla De Mascotas</h1></center>
       <br>
       
-      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Type to search.." title="Type in a name">
+      <input type="text" id="myInput"  placeholder="Type to search.." >
       <br><br>
       <!-- Creacion de la tabla -->
       <table  id="mytable" class="table table-bordered table-hover ">
@@ -315,18 +315,24 @@ $('#adicionar').click(function() {
   var localidad = document.getElementById("localidad").value;
 
   var i = 1; //contador para asignar id al boton que borrara la fila
+  var cookie = " "+fechaC+ "-"+ nombreD+ "-" + anioN+ "-" + nombreM+ "-" + microchip+ "-" + especie+ "-" + sexo+ "-" + tamanio+ "-"+ pd + "-"+ esteril+ "-" + localidad+ " ";
   var fila = '<tr id="row' + i + '"><td id="fce">' + fechaC + '</td><td id="nomde">' + nombreD + '</td><td id="fae" contenteditable="true">' + anioN + '</td><td>'+ nombreM + '</td><td>'+ 
     microchip + '</td><td>'+ especie + '</td><td>'+ sexo +'</td><td>'+ tamanio +'</td><td>'+ pd +'</td><td>'+ esteril +'</td><td>'+ localidad +'</td>'+
         '<td><button type="button" name="edit" id="' + i + '"  class="btn btn-info btn_edit" data-toggle="modal" data-target="#myModal" onclick=editar(this) >Editar</button></td>'+
         '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr> '; //esto seria lo que contendria la fila
         $('#mytable').append(fila);
-        
   i++; 
-    
+
+  setCookie("Cookies", cookie , 60);
+  
 });
 
-
-
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires=" + d.toUTCString();
+  document.cookie += cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
 //FUNCION PARA BORRAR DATOS DE LA TABLA ----------------------------------------------------
   $(document).on('click', '.btn_remove', function() {
@@ -337,6 +343,13 @@ $('#adicionar').click(function() {
     var nFilas = $("#mytable tr").length;
   });
 });
+
+document.getElementById("mytable").onchange=function(){
+  let tablaCookie = document.getElementById("mytable").value
+  console.log(tablaCookie)
+  document.cookie = "tablaCookie=" + tablaCookie;
+}
+
   document.getElementById("especie").onclick= function(){
   $('select#especie').on('change',function(){
     function getSelectValue()
@@ -361,20 +374,18 @@ $('#adicionar').click(function() {
   
   });
   };
-
-  document.getElementById("especie").onchange=function(){
+  
+  /*
+document.getElementById("especie").onchange=function(){
   let especieBreed = document.getElementById("especie").value
   console.log(especieBreed)
   document.cookie = "especieBreed=" + especieBreed;
 
-}
+}*/
+
 
 
 </script>
-
-
-
-
 
 <!-------------------------------------------- EDITAR-------------------------------------------------------->
 
