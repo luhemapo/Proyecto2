@@ -165,7 +165,6 @@
           <th>¿Esterilizado?</th>
           <th>Localidad</th>
           <th>Editar</th>
-          <th>Eliminar</th>
       
         </tr>
       </table>
@@ -318,8 +317,7 @@ $('#adicionar').click(function() {
   var cookie = " "+fechaC+ "-"+ nombreD+ "-" + anioN+ "-" + nombreM+ "-" + microchip+ "-" + especie+ "-" + sexo+ "-" + tamanio+ "-"+ pd + "-"+ esteril+ "-" + localidad+ " ";
   var fila = '<tr id="row' + i + '"><td id="fce">' + fechaC + '</td><td id="nomde">' + nombreD + '</td><td id="fae" contenteditable="true">' + anioN + '</td><td>'+ nombreM + '</td><td>'+ 
     microchip + '</td><td>'+ especie + '</td><td>'+ sexo +'</td><td>'+ tamanio +'</td><td>'+ pd +'</td><td>'+ esteril +'</td><td>'+ localidad +'</td>'+
-        '<td><button type="button" name="edit" id="' + i + '"  class="btn btn-info btn_edit" data-toggle="modal" data-target="#myModal" onclick=editar(this) >Editar</button></td>'+
-        '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr> '; //esto seria lo que contendria la fila
+        '<td><button type="button" name="edit" id="' + i + '"  class="btn btn-info btn_edit" data-toggle="modal" data-target="#myModal" onclick=editar(this) >Editar</button></td>'; //esto seria lo que contendria la fila
         $('#mytable').append(fila);
   i++; 
 
@@ -334,7 +332,12 @@ function setCookie(cname, cvalue, exdays) {
   document.cookie += cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-//FUNCION PARA BORRAR DATOS DE LA TABLA ----------------------------------------------------
+
+
+
+
+
+//--------------------------------------------------------------FUNCION PARA BORRAR DATOS DE LA TABLA ----------------------------------------------------
   $(document).on('click', '.btn_remove', function() {
   var button_id = $(this).attr("id");
     //cuando da click obtenemos el id del boton
@@ -375,16 +378,6 @@ document.getElementById("mytable").onchange=function(){
   });
   };
   
-  /*
-document.getElementById("especie").onchange=function(){
-  let especieBreed = document.getElementById("especie").value
-  console.log(especieBreed)
-  document.cookie = "especieBreed=" + especieBreed;
-
-}*/
-
-
-
 </script>
 
 <!-------------------------------------------- EDITAR-------------------------------------------------------->
@@ -431,10 +424,24 @@ function editar(nodo) {
       var nombreM = nodosEnTr[3].textContent; 
       var sexo = nodosEnTr[6].textContent; 
       var especie = nodosEnTr[5].textContent; 
-
-   var microchip = document.getElementById("editMicr").value;
+    
+      if(microchip ==""){ 
+        var microchip = document.getElementById("editMicr").value;
+      }else{
+        var microchip = nodosEnTr[4].textContent;
+        if(document.getElementById("editMicr").value!=nodosEnTr[4].textContent){
+          window.alert("no es permitido")
+        }
+      else{
+        var microchip = nodosEnTr[4].textContent;
+      }
+      var microchip = nodosEnTr[4].textContent;
+    }
+   
   var tamanio = document.getElementById("editTam").value;
   var pd = document.getElementById("editPd").value;
+
+
   if(esteril=="No"){
   var esteril = document.getElementById("editEsteril").value;
   }else{
@@ -451,8 +458,8 @@ function editar(nodo) {
 
   var fila = '<tr id="row"><td id="fce">' + fecha_mod + '</td><td id="nomde">' + nombreD + '</td><td id="fae" contenteditable="true">' + anioN + '</td><td>'+ nombreM + '</td><td>'+ 
     microchip + '</td><td>'+ especie + '</td><td>'+ sexo +'</td><td>'+ tamanio +'</td><td>'+ pd +'</td><td>'+ esteril +'</td><td>'+ localidad +'</td>'+
-        '<td><button type="button" name="edit" id=""  class="btn btn-info btn_edit" data-toggle="modal" data-target="#myModal" onclick=editar(this) >Editar</button></td>'+
-        '<td><button type="button" name="remove" id="" class="btn btn-danger btn_remove">Quitar</button></td></tr> '; //esto seria lo que contendria la fila
+        '<td><button type="button" name="edit" id=""  class="btn btn-info btn_edit" data-toggle="modal" data-target="#myModal" onclick=editar(this) >Editar</button></td>'
+        ; //esto seria lo que contendria la fila
 
     $('#mytable').append(fila);
     nodoTr.remove();
